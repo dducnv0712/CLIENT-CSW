@@ -3,14 +3,15 @@ import {
     Table,
     Card,
     Spinner,
-    Button 
+    Button,
+    ButtonGroup
 } from 'react-bootstrap';
 import axios from 'axios';
-const List = ({employees,loading,fetchData}) => {
-    const handleDelete = (id) =>{
-        axios.get(`https://api-csw.herokuapp.com/api/employee/delete/${id}`).then(res=>{
+const List = ({ employees, loading, fetchData, handleEdit }) => {
+    const handleDelete = (id) => {
+        axios.get(`https://api-csw.herokuapp.com/api/employee/delete/${id}`).then(res => {
             fetchData();
-        }).catch(err =>{
+        }).catch(err => {
             console.log(err)
         })
     }
@@ -38,7 +39,12 @@ const List = ({employees,loading,fetchData}) => {
                 <td>{item.id}</td>
                 <td>{item.name}</td>
                 <td>{item.salary}</td>
-                <td> <Button variant="danger" onClick={()=>handleDelete(item.id)}  size="sm">Delete</Button></td>
+                <td>
+                    <ButtonGroup aria-label="Basic example">
+                        <Button variant="danger" onClick={() => handleDelete(item.id)} size="sm">Delete</Button>
+                        <Button variant="warning" onClick={() => handleEdit(item.id)} size="sm">Edit</Button>
+                    </ButtonGroup>
+                </td>
             </tr>
         ))
     }
@@ -53,7 +59,7 @@ const List = ({employees,loading,fetchData}) => {
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>First Name</th>
+                            <th>Fullname</th>
                             <th>Salary</th>
                             <th></th>
                         </tr>

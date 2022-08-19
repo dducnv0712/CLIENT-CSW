@@ -13,6 +13,10 @@ const FormAdd = ({ fetchData, isEdit, oldData, setIsEdit }) => {
     const [idSelected, setIdSelected] = useState('');
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if(fullname == null || salary == 0 || salary == ""){
+            alert("Please enter full information")
+            return
+        }
         setLoading(true)
         var body = JSON.stringify({
             "name": fullname,
